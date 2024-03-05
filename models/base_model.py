@@ -6,7 +6,7 @@ from datetime import datetime
 
 
 class BaseModel:
-    """ BaseModel representation """
+    """ BaseModel class resentation """
 
     def __init__(self, *args, ***kwargs):
         """ BaseModel constructor
