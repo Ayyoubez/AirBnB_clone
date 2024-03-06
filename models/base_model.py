@@ -25,15 +25,19 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            model.storage.new(self)
 
     def __str__(slef):
+        """Return the string representation of the BaseModel instances"""
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
+        """Update the current time """
         self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
+        """Return the dictionary of the BaseModel instances """
         obj_dict = self.__dict__.copy()
         obj_dict["__class__"] = self.__class__.__name__
         obj_dict["created_at"] = self.created_at.isoformat()
