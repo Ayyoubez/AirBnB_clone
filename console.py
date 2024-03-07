@@ -13,8 +13,6 @@ from models.review import Review
 from models import storage
 
 
-
-
 def parse_command(arg):
     braces = re.search(r"\{(.*?)\}", arg)
     brackets = re.search(r"\[(.*?)\]", arg)
@@ -22,15 +20,16 @@ def parse_command(arg):
         if brackets is None:
             return [i.strip(",") for i in split(arg)]
         else:
-            lex = split(arg[:brackets.span()[0]]
+            lex = split(arg[:brackets.span()[0]])
             ret = [i.strip(",") for i in lex]
             ret.append(brackets.group())
             return ret
     else:
-        lex = split(arg[:braces.span()[0])
+        lex = split(arg[:braces.span()[0]])
         ret = [i.strip(",") for i in lex]
         ret.append(braces.group())
         return ret
+
 
 class HBNBCommand(cmd.Cmd):
     """ Defines the command interpreter
@@ -79,7 +78,7 @@ class HBNBCommand(cmd.Cmd):
             "count": self.do_count,
             "update": self.do_update
         }
-        match_arg = re.search(r"\.",arg)
+        match_arg = re.search(r"\.", arg)
         if match_arg is not None:
             arg1 = [arg[:match_arg.span()[0]], arg[mathc_arg.span()[1]:]]
             match_arg = re.search(r"\((.*?)\)", arg1[1])
@@ -90,6 +89,7 @@ class HBNBCommand(cmd.Cmd):
                     return arg_dict[comd[0]](call)
         print("*** Unknown syntax: {}".format(arg))
         return False
+
     def do_create(self, arg):
         """Usage : Create <class>
         create a new object and print is ID
@@ -108,7 +108,7 @@ class HBNBCommand(cmd.Cmd):
         """
         arg1 = parse_command(arg)
         obj_dict = storage.all()
-        if len(arg1) ++ 0:
+        if len(arg1) == 0:
             print("** class name missing **")
         elif arg1[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
@@ -119,35 +119,52 @@ class HBNBCommand(cmd.Cmd):
         else:
             print(obj_dict["{}.{}".format(arg1[0], arg1[1])])
 
+    def do_update(self, arg):
+        """Usage: update an instance by a given id
+        <class name>.update(<id>, <attribute name>, <attribute value>)
+        """
+        arg1 = parse_command(arg)
+        obj_dict = storage.all()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        if len(arg1) == 0:
+            print("** class name missing **")
+            return False
+        if arg1[0] not in HBNBNCommand.__classes:
+            print("** class doesn't exist **")
+            return False
+        if len(arg1) == 1:
+            print("** instance id missing **")
+            return False
+        if "{}.{}".format(arg1[0].arg1[1]) not int aob_dict.kets():
+            print("** no instance found **")
+            return False
+        if len(arg1) == 2:
+            print("** attribute name missing **")
+            return False
+        if len(arg1) == 3:
+            try:
+                type(eval(arg1[2])) != dict
+            except NameError:
+                print("** value missing **")
+                return False
+        if len(arg1) == 4:
+            obj = obj_dict["{}.{}".format(arg1[0], arg1[1])]
+            if arg1[2] in obj.__class__.__dict__.keys():
+                value_type = type(obj.__class__.__dict__[arg1[2]])
+                abj.__dict__[arg[2]] = value_type(arg1[3])
+            else:
+                obj.__dict__[arg1[2]] = arg1[3]
+        elif type(eval(arg1[2])) == dict:
+            obj = obj_dict["{}.{}".format(arg1[0], arg1[1])]
+            for key, value in eval(arg1[2]).items():
+                if (key in obj.__class__.__dict__.keys() and
+                        type(obj.__class__.__dict__[key]) in {
+                            str, int, float}):
+                    value_type = type(obj.__class__.__dict__[key])
+                    obj.__dict__[key] = value_type(value)
+                else:
+                    obj.__dict__[key] = value
+        storage.save()
 
 
 if __name__ == '__main__':
