@@ -15,17 +15,19 @@ class BaseModel:
             *args (dif): unused.
             **kwargs (dict): key/value as a dictionnary.
         """
-        if kwargs:
-            for key, val in kwargs.items():
+        time_format = "%Y-%m-%dT%H:%M:%S.%f"
+        if len(kwargs) != 0:
+            for key, value in kwargs.items():
                 if key != '__class__':
-                    if key in ['crated_at', 'updated_at']:
-                        val = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
-                    setattr(self, key, val)
+                    if key == 'crated_at' or key == 'updated_at':
+                        self.__dict__[key] = datetime.strptime(value, time_format)
+                    else:
+                        self.__dict__[key] = value
         else:
             self.id = str(uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
-            model.storage.new(self)
+            self.created_at = datetime.today()
+            self.updated_at = datetime.today()
+            models.storage.new(self)
 
     def __str__(slef):
         """Return the string representation of the BaseModel instances"""
