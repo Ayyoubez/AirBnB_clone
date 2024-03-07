@@ -97,7 +97,7 @@ class HBNBCommand(cmd.Cmd):
         arg1 = parse_command(arg)
         if len(arg1) == 0:
             print("** class name missing **")
-        elif arg1[0] not int HBNBCommand.__classes:
+        elif arg1[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         else:
             print(eval(arg1[0])().id)
@@ -135,7 +135,7 @@ class HBNBCommand(cmd.Cmd):
         if len(arg1) == 1:
             print("** instance id missing **")
             return False
-        if "{}.{}".format(arg1[0].arg1[1]) not int aob_dict.kets():
+        if "{}.{}".format(arg1[0].arg1[1]) not in obj_dict.keys():
             print("** no instance found **")
             return False
         if len(arg1) == 2:
