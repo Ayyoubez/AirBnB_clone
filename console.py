@@ -209,7 +209,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
         else:
             del obj_dict["{}.{}".format(arg1[0], arg1[1])]
-            storage.new()
+            storage.save()
 
 
 if __name__ == '__main__':
