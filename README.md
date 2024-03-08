@@ -1,1 +1,1 @@
-Project description
+Our team project aims to create a replica of the popular accommodation rental platform, Airbnb. Our project includes a console command interpreter that serves as an interface for managing objects and their storage. The console allows users to create new objects, retrieve objects from a file, perform operations on objects, and destroy objects, providing a seamless experience similar to Airbnb's functionality
