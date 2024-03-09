@@ -1,3 +1,15 @@
+#!/usr/bin/python3
+"""Unittest for console.py
+unnitest classes:
+    TestHBNBCommand_prompt
+    TestHBNBCommand_help
+    ConsoleTestCase
+
+
+
+
+
+"""
 import unittest
 
 from unittest.mock import patch
