@@ -4,11 +4,6 @@ unnitest classes:
     TestHBNBCommand_prompt
     TestHBNBCommand_help
     ConsoleTestCase
-
-
-
-
-
 """
 import unittest
 
