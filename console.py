@@ -129,7 +129,7 @@ class HBNBCommand(cmd.Cmd):
         if len(arg1) == 0:
             print("** class name missing **")
             return False
-        if arg1[0] not in HBNBNCommand.__classes:
+        if arg1[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
             return False
         if len(arg1) == 1:
@@ -171,7 +171,7 @@ class HBNBCommand(cmd.Cmd):
         """Usage : prints all instances of a given class or
         display all the objects created
         """
-        if len(arg1) > 0 and arg1[0] not in HBNBCommand_.classes:
+        if len(arg1) > 0 and arg1[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         else:
             obj1 = []
