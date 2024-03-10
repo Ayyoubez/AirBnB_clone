@@ -80,9 +80,9 @@ class HBNBCommand(cmd.Cmd):
         }
         match_arg = re.search(r"\.", arg)
         if match_arg is not None:
-            arg1 = [arg[:match_arg.span()[0]], arg[mathc_arg.span()[1]:]]
+            arg1 = [arg[:match_arg.span()[0]], arg[match_arg.span()[1]:]]
             match_arg = re.search(r"\((.*?)\)", arg1[1])
-            if match is not None:
+            if match_arg is not None:
                 comd = [arg1[1][:match_arg.span()[0]], match_arg.group()[1:-1]]
                 if comd[0] in arg_dict.keys():
                     call = "{} {}".format(arg1[0], comd[1])
@@ -188,7 +188,7 @@ class HBNBCommand(cmd.Cmd):
         """
         arg1 = parse_command(arg)
         count = 0
-        for objects in storage.add().values():
+        for objects in storage.all().values():
             if arg1[0] == objects.__class__.__name__:
                 count += 1
         print(count)
