@@ -23,7 +23,8 @@ class BaseModel:
             for key, value in kwargs.items():
                 if key != '__class__':
                     if key == 'created_at' or key == 'updated_at':
-                        self.__dict__[key] = datetime.strptime(value, time_format)
+                        self.__dict__[key] = datetime.strptime(
+                                value, time_format)
                     else:
                         self.__dict__[key] = value
         else:
@@ -45,4 +46,3 @@ class BaseModel:
         obj_dict["created_at"] = self.created_at.isoformat()
         obj_dict['updated_at'] = self.updated_at.isoformat()
         return obj_dict
-
