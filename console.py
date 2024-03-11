@@ -182,6 +182,35 @@ class HBNBCommand(cmd.Cmd):
                     obj1.append(obj.__str__())
             print(obj1)
 
+    def do_count(self, arg):
+        """ Usage : count or  retrieve the number of instances
+        of a class: <class name>.count()
+        """
+        arg1 = parse_command(arg)
+        count = 0
+        for objects in storage.add().values():
+            if arg1[0] == objects.__class__.__name__:
+                count += 1
+        print(count)
+
+    def do_destroy(self, arg):
+        """ Usage :  destroy an instance based on
+        his ID: <class name>.destroy(<id>)
+        """
+        arg1 = parse_command(arg)
+        obj_dict = storage.all()
+        if len(arg1) == 0:
+            print("** class name missing **")
+        elif arg1[0] not in HBNBCommand.__classes:
+            print("** class doesn't exist **")
+        elif len(arg1) == 1:
+            print("** instance id missing **")
+        elif "{}.{}".format(arg1[0], arg1[1]) not in obj_dict.keys():
+            print("** no instance found **")
+        else:
+            del obj_dict["{}.{}".format(arg1[0], arg1[1])]
+            storage.save()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
