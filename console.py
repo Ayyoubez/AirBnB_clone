@@ -80,9 +80,9 @@ class HBNBCommand(cmd.Cmd):
         }
         match_arg = re.search(r"\.", arg)
         if match_arg is not None:
-            arg1 = [arg[:match_arg.span()[0]], arg[mathc_arg.span()[1]:]]
+            arg1 = [arg[:match_arg.span()[0]], arg[match_arg.span()[1]:]]
             match_arg = re.search(r"\((.*?)\)", arg1[1])
-            if match is not None:
+            if match_arg is not None:
                 comd = [arg1[1][:match_arg.span()[0]], match_arg.group()[1:-1]]
                 if comd[0] in arg_dict.keys():
                     call = "{} {}".format(arg1[0], comd[1])
@@ -129,13 +129,13 @@ class HBNBCommand(cmd.Cmd):
         if len(arg1) == 0:
             print("** class name missing **")
             return False
-        if arg1[0] not in HBNBNCommand.__classes:
+        if arg1[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
             return False
         if len(arg1) == 1:
             print("** instance id missing **")
             return False
-        if "{}.{}".format(arg1[0].arg1[1]) not in obj_dict.keys():
+        if "{}.{}".format(arg1[0], arg1[1]) not in obj_dict.keys():
             print("** no instance found **")
             return False
         if len(arg1) == 2:
@@ -151,7 +151,7 @@ class HBNBCommand(cmd.Cmd):
             obj = obj_dict["{}.{}".format(arg1[0], arg1[1])]
             if arg1[2] in obj.__class__.__dict__.keys():
                 value_type = type(obj.__class__.__dict__[arg1[2]])
-                abj.__dict__[arg[2]] = value_type(arg1[3])
+                obj.__dict__[arg[2]] = value_type(arg1[3])
             else:
                 obj.__dict__[arg1[2]] = arg1[3]
         elif type(eval(arg1[2])) == dict:
@@ -171,7 +171,7 @@ class HBNBCommand(cmd.Cmd):
         """Usage : prints all instances of a given class or
         display all the objects created
         """
-        if len(arg1) > 0 and arg1[0] not in HBNBCommand_.classes:
+        if len(arg1) > 0 and arg1[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         else:
             obj1 = []
@@ -188,7 +188,7 @@ class HBNBCommand(cmd.Cmd):
         """
         arg1 = parse_command(arg)
         count = 0
-        for objects in storage.add().values():
+        for objects in storage.all().values():
             if arg1[0] == objects.__class__.__name__:
                 count += 1
         print(count)

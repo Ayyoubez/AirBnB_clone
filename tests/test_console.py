@@ -1,3 +1,10 @@
+#!/usr/bin/python3
+"""Unittest for console.py
+unnitest classes:
+    TestHBNBCommand_prompt
+    TestHBNBCommand_help
+    ConsoleTestCase
+"""
 import unittest
 
 from unittest.mock import patch
@@ -12,6 +19,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
+
 class TestHBNBCommand_prompt(unittest.TestCase):
     """testing prompting of the HBNB command interpreter."""
 
@@ -22,6 +30,7 @@ class TestHBNBCommand_prompt(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd(""))
             self.assertEqual("", output.getvalue().strip())
+
 
 class TestHBNBCommand_help(unittest.TestCase):
     """testing help messages of the HBNB command interpreter."""
@@ -45,43 +54,45 @@ class TestHBNBCommand_help(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help EOF"))
             self.assertEqual(msg, output.getvalue().strip())
-    
+
     def test_help_create(self):
-        msg =("Creates a new instance :\n"
-             "Usage: create <class name>")
+        msg = ("Creates a new instance :\n"
+               "Usage: create <class name>")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help create"))
             self.assertEqual(msg, output.getvalue().strip())
 
     def test_help_show(self):
         msg = ("Prints the string representation of an instance\n"
-            "Usage: show <class name> <id>")
+               "Usage: show <class name> <id>")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help show"))
             self.assertEqual(msg, output.getvalue().strip())
 
     def test_help_destroy(self):
         h = ("Deletes an instance\n"
-            "Usage: destroy <class name> <id>")
+             "Usage: destroy <class name> <id>")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help destroy"))
             self.assertEqual(h, output.getvalue().strip())
 
     def test_help_all(self):
         h = ("Prints all string representation of all\n"
-            "instances based or not on the class name\n"
-            "Usage1: all\n"
-            "Usage2: all <class name>")
+             "instances based or not on the class name\n"
+             "Usage1: all\n"
+             "Usage2: all <class name>")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help all"))
             self.assertEqual(h, output.getvalue().strip())
 
     def test_help_update(self):
         h = ("Updates an instance by adding or updating attribute\n"
-             "Usage: update <class name> <id> <attribute name> \"<attribute value>\"")
+             "Usage: update <class name> <id> <attribute name>"
+             "\"<attribute value>\"")
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("help update"))
             self.assertEqual(h, output.getvalue().strip())
+
 
 class ConsoleTestCase(unittest.TestCase):
     """testing errors"""
@@ -99,7 +110,7 @@ class ConsoleTestCase(unittest.TestCase):
         cmd_classname = ["create", "update", "show", "destroy"]
         cmd_id = ["update", "show", "destroy"]
         cmd_attr = ["update"]
-        
+
         """ class name missing """
         for cmd in cmd_classname:
             # print(f"class name missing : {cmd}")
@@ -200,6 +211,7 @@ class ConsoleTestCase(unittest.TestCase):
                     expected = "** value missing **"
                     HBNBCommand().onecmd(f"{cmd} {clas} {id_dict[clas]} name")
                     self.assertCountEqual(expected, f.getvalue().strip())
+
 
 if __name__ == '__main__':
     unittest.main()
