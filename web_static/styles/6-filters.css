@@ -33,6 +33,13 @@ button:hover{
     float: left;
     text-align: left;
 }
+.amenities h4, .locations h4{
+    margin: 0px;
+    padding: 0px;
+    font-weight: 400;
+    font-size: 14px;
+    padding-left: 30px;
+}
 .amenities{
 
     text-align: left;
